@@ -1,0 +1,14 @@
+{
+  "name": "hello-world",
+  "version": "0.1.0",
+  "description": "Example Hello World Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Asymmetrik, Ltd.",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

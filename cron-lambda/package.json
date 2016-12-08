@@ -1,0 +1,14 @@
+{
+  "name": "cron-lambda",
+  "version": "0.1.0",
+  "description": "Lambda function for executing deployed Jobs in ECS",
+  "main": "index.js",
+  "author": "Asymmetrik",
+  "license": "MIT",
+  "devDependencies": {
+    "aws-sdk": "^2.6.2"
+  },
+  "dependencies": {
+    "later": "^1.2.0"
+  }
+}
