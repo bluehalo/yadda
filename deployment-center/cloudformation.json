@@ -1,0 +1,136 @@
+{
+	"AWSTemplateFormatVersion" : "2010-09-09",
+
+	"Description" : "Deployment Center to handle yadda deployments",
+
+	"Resources" : {
+		"DeploymentHistory": {
+			"Type": "AWS::DynamoDB::Table",
+			"Properties": {
+				"AttributeDefinitions": [
+					{ "AttributeName": "appName", "AttributeType": "S" },
+					{ "AttributeName": "deploymentTimestamp", "AttributeType": "N" },
+					{ "AttributeName": "active", "AttributeType": "N" }
+				],
+				"KeySchema": [
+					{ "AttributeName": "appName", "KeyType": "HASH" },
+					{ "AttributeName": "deploymentTimestamp", "KeyType": "RANGE" }
+				],
+				"ProvisionedThroughput": {
+					"ReadCapacityUnits": 20,
+					"WriteCapacityUnits": 5
+				},
+				"LocalSecondaryIndexes": [{
+					"IndexName": "DeploymentStatus",
+					"KeySchema": [
+						{ "AttributeName": "appName", "KeyType": "HASH" },
+						{ "AttributeName": "active", "KeyType": "RANGE" }
+					],
+					"Projection": {
+						"ProjectionType": "ALL"
+					}
+				}]
+			}
+		},
+		"CronJobCheckerRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Effect": "Allow",
+						"Principal": {
+							"Service": ["lambda.amazonaws.com"]
+						},
+						"Action": ["sts:AssumeRole"]
+						}]
+				},
+				"Policies": [{
+					"PolicyName": "RunECSJobs",
+					"PolicyDocument": {
+						"Version": "2012-10-17",
+						"Statement": [{
+							"Effect": "Allow",
+							"Action": ["ecs:RunTask"],
+							"Resource": "*"
+						}]
+					}
+				},{
+					"PolicyName": "ReadFromDeploymentHistory",
+					"PolicyDocument": {
+						"Version": "2012-10-17",
+						"Statement": [{
+							"Effect": "Allow",
+							"Action": ["dynamoDB:Scan"],
+							"Resource": { "Fn::Join": ["", [
+								"arn:aws:dynamodb:",
+								{ "Ref": "AWS::Region"},
+								":",
+								{ "Ref": "AWS::AccountId"},
+								":table/",
+								{ "Ref": "DeploymentHistory"}
+							]]}
+						}]
+					}
+				}]
+			}
+		},
+		"CronJobChecker": {
+			"Type": "AWS::Lambda::Function",
+			"Properties": {
+				"Description": "Cron Job Executor for ECS Docker Deployments",
+				"Runtime": "nodejs4.3",
+				"Handler": "index.runCronJobs",
+				"Timeout": 59,
+				"MemorySize": 128,
+				"Role": { "Fn::GetAtt" : ["CronJobCheckerRole", "Arn"] },
+				"Code": {
+					"ZipFile": { "Fn::Join": ["\n", [
+						"// Source Code below will be replaced by create-deployment-center",
+						"// after stack is completed.",
+						"exports.runCronJobs = function(event, context) {",
+						"  console.error('PLEASE UPLOAD CRON-LAMBDA SOURCE');",
+						"};"
+					]]}
+				},
+				"Environment": {
+					"Variables": {
+						"DeploymentHistoryTableName": { "Ref": "DeploymentHistory" },
+						"DeploymentHistoryTableRegion": { "Ref": "AWS::Region" }
+					}
+				}
+			}
+		},
+		"ScheduledTriggerForCronJobChecker": {
+			"Type": "AWS::Events::Rule",
+			"Properties": {
+				"Description": "Clock to run cron job checker every minute",
+				"ScheduleExpression": "rate(1 minute)",
+				"Targets": [{
+					"Arn": { "Fn::GetAtt": ["CronJobChecker", "Arn"] },
+					"Id": { "Ref": "CronJobChecker"}
+				}]
+			}
+		},
+		"PermissionToInvokeLambda": {
+			"Type": "AWS::Lambda::Permission",
+			"Properties": {
+				"FunctionName": { "Ref": "CronJobChecker"},
+				"Action": "lambda:InvokeFunction",
+				"Principal": "events.amazonaws.com",
+				"SourceArn": { "Fn::GetAtt": ["ScheduledTriggerForCronJobChecker", "Arn"]}
+			}
+		}
+	},
+
+	"Outputs": {
+		"DeploymentHistoryTableName": {
+			"Description": "Table Name for Deployment History",
+			"Value": { "Ref": "DeploymentHistory" }
+		},
+		"CronJobCheckerFunctionName": {
+			"Description": "Cron Job Checker Function Name",
+			"Value": { "Ref": "CronJobChecker" }
+		}
+	}
+}
