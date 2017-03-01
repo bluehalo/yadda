@@ -56,6 +56,19 @@ var promptForMissingOptions = function(options) {
 	});
 };
 
+function loadOptionsFromFile(file, callback) {
+	var filePath = path.resolve(file);
+	fs.stat(filePath, function(err, stat) {
+		if (err && err.code === 'ENOENT') {
+			return callback(new Error('Could not find file: ' + filePath));
+		}
+		else if (err) {
+			return callback(err);
+		}
+		var options = require(filePath);
+		return callback(undefined, options);
+	});
+}
 
 function appendOptionsFromFile(file) {
 	return function(options) {
@@ -80,20 +93,6 @@ function setDefaultValues(options) {
 		_.set(options, ['services', serviceName, 'name'], serviceName);
 	});
 	return options;
-}
-
-function loadOptionsFromFile(file, callback) {
-	var filePath = path.resolve(file);
-	fs.stat(filePath, function(err, stat) {
-		if (err && err.code === 'ENOENT') {
-			return callback(new Error('Could not find file: ' + filePath));
-		}
-		else if (err) {
-			return callback(err);
-		}
-		var options = require(filePath);
-		return callback(undefined, options);
-	});
 }
 
 
