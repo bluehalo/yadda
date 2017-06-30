@@ -98,7 +98,6 @@ var ImageTemplateSchema = {
 		dockerBuildContext: { type: 'string' },
 		dockerfile: { type: 'string' }
 	},
-	required: ['repo', 'dockerBuildContext', 'dockerfile'],
 	additionalProperties: false
 };
 v.addSchema(ImageTemplateSchema);
