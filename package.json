@@ -1,7 +1,7 @@
 {
   "name": "@asymmetrik/yadda",
   "description": "Deployment tool for AWS ECS and ECR",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "index.js",
   "author": "Asymmetrik, Ltd",
   "license": "MIT",
