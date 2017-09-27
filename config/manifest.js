@@ -77,8 +77,9 @@ var SecretSettingsSchema = {
 	type: 'object',
 	properties: {
 		enabled: { type: 'boolean' },
+		kmsKeyAlias: { type: 'string' },
 	},
-	required: ['enabled'],
+	required: ['enabled', 'kmsKeyAlias'],
 	additionalProperties: false
 };
 v.addSchema(SecretSettingsSchema);

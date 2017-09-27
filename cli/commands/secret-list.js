@@ -1,7 +1,5 @@
 'use strict';
 
-//Naming of file is intentional
-
 var Q = require('q');
 
 var config = require('../../config');
@@ -12,9 +10,9 @@ var cliHelpers = require('../helpers');
 var secretTasks = require('../../lib/secret-tasks');
 
 module.exports = function(program) {
-	program.command('create-secret-center')
+	program.command('secret-list')
 		.arguments('<environment>')
-		.description('Create secret table for a deployment center')
+		.description('List all secrets in an environment')
 		.action(function(environment) {
 			var runtimeOptions = this.opts();
 			runtimeOptions.environment = environment;
@@ -24,7 +22,7 @@ module.exports = function(program) {
 				.then(cliHelpers.lint)
 				.then(secretTasks.verify)
 				.then(secretTasks.setupSecretCenter)
-				.then(secretTasks.createSecretCenter)
+				.then(secretTasks.listSecrets)
 				.catch(function (err) {
 					logger.error(err.message);
 				});
