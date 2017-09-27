@@ -7,7 +7,12 @@ module.exports = {
 	// Deployment Center Information created with the create-deployment-center command
 	DeploymentCenter: {
 		name: 'YaddaDeploymentCenter',
-		region: 'us-east-1'
+		region: 'us-east-1',
+
+		//Optional, handling secret center
+		secret: {
+			enabled: true
+		},
 	},
 
 	// Images to Be Built and Pushed to ECR

@@ -19,7 +19,6 @@ var ManifestSchema = {
 		AppName: { type: 'string' },
 		DeploymentCenter: { '$ref': '/DeploymentCenter' },
 		aws: { '$ref': '/AWSSettings' },
-		secret: { '$ref': '/SecretSettings' },
 		images: {
 			type: 'object',
 			patternProperties: {
@@ -57,7 +56,9 @@ var DeploymentCenterSchema = {
 	type: 'object',
 	properties: {
 		name: { type: 'string' },
-		region: { type: 'string' }
+		region: { type: 'string' },
+		secret: { '$ref': '/SecretSettings' },
+
 	},
 	required: ['name', 'region'],
 	additionalProperties: false
@@ -72,13 +73,13 @@ v.addSchema(DeploymentCenterSchema);
  * @property {string} region - AWS Region to deployed this deployment center. Does not need to be the environment's region.
  */
 var SecretSettingsSchema = {
-    id: '/SecretSettings',
-    type: 'object',
-    properties: {
-        enabled: { type: 'boolean' },
-    },
-    required: ['support'],
-    additionalProperties: false
+	id: '/SecretSettings',
+	type: 'object',
+	properties: {
+		enabled: { type: 'boolean' },
+	},
+	required: ['enabled'],
+	additionalProperties: false
 };
 v.addSchema(SecretSettingsSchema);
 
