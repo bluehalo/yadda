@@ -8,6 +8,7 @@ var logger = config.logger;
 
 var cliHelpers = require('../helpers');
 var deploymentTasks = require('../../lib/deployment-tasks');
+var secretTasks = require('../../lib/secret-tasks');
 
 function list(value) {
 	return value.split(',');
@@ -26,6 +27,7 @@ module.exports = function(program) {
 			Q.when(runtimeOptions)
 			.then(cliHelpers.setup(cliHelpers.promptForMissingOptions))
 			.then(cliHelpers.lint)
+			.then(secretTasks.setupSecretCenter)
 			.then(deploymentTasks.deploy)
 			.catch(function (err) {
 				logger.error(err.message);

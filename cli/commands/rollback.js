@@ -8,6 +8,7 @@ var logger = config.logger;
 
 var cliHelpers = require('../helpers');
 var deploymentTasks = require('../../lib/deployment-tasks');
+var secretTasks = require('../../lib/secret-tasks');
 
 module.exports = function(program) {
 	program.command('rollback')
@@ -19,6 +20,7 @@ module.exports = function(program) {
 			Q.when(runtimeOptions)
 			.then(cliHelpers.setup())
 			.then(cliHelpers.lint)
+			.then(secretTasks.setupSecretCenter)
 			.then(deploymentTasks.rollback)
 			.catch(function (err) {
 				logger.error(err.message);
