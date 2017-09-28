@@ -8,9 +8,6 @@
   "bin": {
     "yadda": "./cli/yadda.js"
   },
-  "engines": {
-    "node": ">=6"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Asymmetrik/yadda.git"
