@@ -11,8 +11,7 @@ module.exports = {
 
 		//Optional, handling secret center
 		secret: {
-			enabled: true,
-			kmsKeyAlias: 'alias/yadda-kms'
+			kmsKeyAlias: 'alias/yadda-kms',
 		},
 	},
 
