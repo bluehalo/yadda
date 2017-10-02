@@ -56,12 +56,32 @@ var DeploymentCenterSchema = {
 	type: 'object',
 	properties: {
 		name: { type: 'string' },
-		region: { type: 'string' }
+		region: { type: 'string' },
+		secret: { '$ref': '/SecretSettings' },
+
 	},
 	required: ['name', 'region'],
 	additionalProperties: false
 };
 v.addSchema(DeploymentCenterSchema);
+
+/**
+ * Secret Settings.
+ * @typedef {object} SecretSettings
+ * @memberof Manifest
+ * @property {string} name - name of deployment center to use or create. Must be unique within the deployment centers region.
+ * @property {string} region - AWS Region to deployed this deployment center. Does not need to be the environment's region.
+ */
+var SecretSettingsSchema = {
+	id: '/SecretSettings',
+	type: 'object',
+	properties: {
+		kmsKeyAlias: { type: 'string' },
+	},
+	required: ['kmsKeyAlias'],
+	additionalProperties: false
+};
+v.addSchema(SecretSettingsSchema);
 
 /**
  * Environment specific settings for AWS.

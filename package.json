@@ -1,10 +1,14 @@
 {
   "name": "@asymmetrik/yadda",
   "description": "Deployment tool for AWS ECS and ECR",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "main": "index.js",
   "author": "Asymmetrik, Ltd",
   "license": "MIT",
+  "contributors": [
+    { "name" : "Brandon Bodnar" },
+    { "name" : "Christopher Sidell" }
+  ],
   "bin": {
     "yadda": "./cli/yadda.js"
   },
@@ -13,6 +17,7 @@
     "url": "https://github.com/Asymmetrik/yadda.git"
   },
   "dependencies": {
+    "@asymmetrik/yadda-secret": "^0.0.1",
     "archiver": "^1.1.0",
     "aws-sdk": "^2.5.1",
     "commander": "^2.9.0",
@@ -23,6 +28,7 @@
     "jsonschema": "^1.1.0",
     "lodash": "^4.15.0",
     "ncp": "^2.0.0",
+    "nodecredstash": "^1.1.0",
     "prompt": "^1.0.0",
     "q": "^1.4.1",
     "split": "^1.0.0",
