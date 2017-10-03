@@ -88,3 +88,19 @@ application via
 replacing `<environment>` with the name of the environment you want to deploy to
 (for example, `yadda deploy staging` to deploy to the environment defined in
 `deployment/env/staging.js`).
+
+Secret Management
+--------------------------
+
+After your Deployment Center is created you can optionally create a secret center 
+which your containers can leverage for encrypted secrets. See 
+[Yadda-Secret](https://github.com/asymmetrik/yadda-secret) for the server package.
+
+To create the Secret Center you can run  
+
+	$ yadda create-secret-center <env>
+	
+The command will create a secret center in the same region as your environments 
+deployment center. You can then access the secrets with
+
+	$ yadda secret <env> <action> <key> [value]
