@@ -25,6 +25,7 @@ module.exports = function(program) {
 				.then(secretTasks.verify)
 				.then(secretTasks.setupSecretCenter)
 				.then(secretTasks.createSecretCenter)
+				.then(secretTasks.createSecretCenterPolicy)
 				.catch(function (err) {
 					logger.error(err.message);
 				});
