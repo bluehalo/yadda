@@ -1,13 +1,17 @@
 {
   "name": "@asymmetrik/yadda",
   "description": "Deployment tool for AWS ECS and ECR",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "index.js",
   "author": "Asymmetrik, Ltd",
   "license": "MIT",
   "contributors": [
-    { "name" : "Brandon Bodnar" },
-    { "name" : "Christopher Sidell" }
+    {
+      "name": "Brandon Bodnar"
+    },
+    {
+      "name": "Christopher Sidell"
+    }
   ],
   "bin": {
     "yadda": "./cli/yadda.js"
