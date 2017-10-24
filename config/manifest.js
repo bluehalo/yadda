@@ -77,8 +77,15 @@ var SecretSettingsSchema = {
 	type: 'object',
 	properties: {
 		kmsKeyAlias: { type: 'string' },
+		kmsKeyId: { type: 'string' },
 	},
-	required: ['kmsKeyAlias'],
+	anyOf: [{
+		title: '{ kmsKeyAlias: string }',
+		required: ['kmsKeyAlias']
+	}, {
+		title: '{ kmsKeyId: string }',
+		required: ['kmsKeyId']
+	}],
 	additionalProperties: false
 };
 v.addSchema(SecretSettingsSchema);
