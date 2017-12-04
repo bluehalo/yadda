@@ -71,13 +71,15 @@ v.addSchema(DeploymentCenterSchema);
  * @memberof Manifest
  * @property {string} kmsKeyAlias - The key alias to use. Must be unique within the deployment centers region.
  * @property {string} region - AWS Region the key alias resides in. Does not need to be the environment's region.
+ * @property {string} cacheBusterKey - The secret key used for cache busting.
  */
 var SecretSettingsSchema = {
 	id: '/SecretSettings',
 	type: 'object',
 	properties: {
 		kmsKeyAlias: { type: 'string' },
-		region: { type: 'string' }
+		region: { type: 'string' },
+		cacheBusterKey: { type: 'string' }
 	},
 	required: ['kmsKeyAlias'],
 	additionalProperties: false
