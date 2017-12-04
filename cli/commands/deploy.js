@@ -28,7 +28,6 @@ module.exports = function(program) {
 			.then(cliHelpers.setup(cliHelpers.promptForMissingOptions))
 			.then(cliHelpers.lint)
 			.then(secretTasks.setupSecretCenter)
-			.then(secretTasks.refreshSecrets)
 			.then(deploymentTasks.deploy)
 			.catch(function (err) {
 				logger.error(err.message);
