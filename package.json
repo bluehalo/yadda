@@ -21,7 +21,7 @@
     "url": "https://github.com/Asymmetrik/yadda.git"
   },
   "dependencies": {
-    "@asymmetrik/yadda-secret": "^0.0.11",
+    "@asymmetrik/yadda-secret": "^0.0.12",
     "archiver": "^1.1.0",
     "aws-sdk": "^2.5.1",
     "commander": "^2.9.0",
