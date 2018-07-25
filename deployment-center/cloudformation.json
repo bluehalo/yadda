@@ -79,7 +79,7 @@
 			"Type": "AWS::Lambda::Function",
 			"Properties": {
 				"Description": "Cron Job Executor for ECS Docker Deployments",
-				"Runtime": "nodejs4.3",
+				"Runtime": "nodejs8.10",
 				"Handler": "index.runCronJobs",
 				"Timeout": 59,
 				"MemorySize": 128,
