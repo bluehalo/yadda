@@ -1,5 +1,9 @@
 'use strict';
 
+const dotenv = require('dotenv');
+dotenv.load({ path: '.env.session' });
+dotenv.load({ path: '.env.yadda'});
+
 var Q = require('q');
 var _ = require('lodash');
 
@@ -25,12 +29,12 @@ module.exports = function(program) {
 			var runtimeOptions = this.opts();
 			runtimeOptions.environment = environment;
 			Q.when(runtimeOptions)
-			.then(cliHelpers.setup(cliHelpers.promptForMissingOptions))
-			.then(cliHelpers.lint)
-			.then(secretTasks.setupSecretCenter)
-			.then(deploymentTasks.deploy)
-			.catch(function (err) {
-				logger.error(err.message);
-			});
+				.then(cliHelpers.setup(cliHelpers.promptForMissingOptions))
+				.then(cliHelpers.lint)
+				.then(secretTasks.setupSecretCenter)
+				.then(deploymentTasks.deploy)
+				.catch(function (err) {
+					logger.error(err.message);
+				});
 		});
 };
