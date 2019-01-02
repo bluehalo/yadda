@@ -9,7 +9,7 @@ module.exports = function(program) {
 	program.command('authenticate')
 		.description('Authenticate')
 		.description('Authenticates CLI access to AWS resources for a named profile using an MFA token. When a valid ' +
-			'profile from  ~/.aws/credentials and the associated MFA Token are supplied, temporary session credentials ' +
+			'profile from ~/.aws/credentials and the associated MFA Token are supplied, temporary session credentials ' +
 			'are saved to ./.env.session. The ./.env.session file will be overwritten every time this command is run with ' +
 			'valid credentials.\n\nIf you do not have a ~/.aws/credentials file, run the cli command \'aws configure\' ' +
 			'and enter your AWS Access Key ID and Secret Access Key at the prompts. If you already have a ~/.aws/credentials ' +
