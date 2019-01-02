@@ -18,8 +18,6 @@ module.exports = function(program) {
 			'WARNING: If you have set environment variables in your development environment containing AWS credentials, ' +
 			'they may interfere with the authentication process. It is recommended that you unset these before attempting ' +
 			'to use this authenticate command.')
-		.option('-p, --profile <profile>', 'Profile from ~/.aws/credentials to use.')
-		.option('-t, --token <token>', 'MFA Token')
 		.option('-d, --duration <duration>', 'Seconds until session credentials expire')
 		.action(function() {
 			const runtimeOptions = this.opts();
@@ -39,7 +37,6 @@ module.exports = function(program) {
 					}
 				}
 			};
-			prompt.override = runtimeOptions;
 			prompt.start();
 			prompt.message = '';
 			prompt.get(promptedOptions, (err, options) => {
